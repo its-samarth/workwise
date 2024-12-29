@@ -1,5 +1,5 @@
 export const fetchHello = async () => {
-    const response = await fetch('http://13.48.59.185:5000/hello');
+    const response = await fetch('http://workwise.chickenkiller.com/hello');
     const text = await response.text();
     return text;
   };
