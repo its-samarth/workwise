@@ -11,7 +11,7 @@ export const authOptions = {
     // ...add more providers here
   ],
   callbacks: {
-    async redirect({ url, baseUrl }) {
+    async redirect({ baseUrl }) {
       return baseUrl; // Redirect to the home page after login
     },
   },
