@@ -6,6 +6,7 @@ frontend:
         - npm install
     build:
       commands:
+        - env | grep -e GITHUB_ID -e GITHUB_SECRET -e NEXTAUTH_URL -e NEXTAUTH_SECRET >> .env.production
         - npm run build
   artifacts:
     baseDirectory: .next
@@ -14,3 +15,4 @@ frontend:
   cache:
     paths:
       - node_modules/**/* 
+      - .next/cache/**/*  
