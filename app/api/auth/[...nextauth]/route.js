@@ -15,6 +15,7 @@ export const authOptions = {
       return baseUrl; // Redirect to the home page after login
     },
   },
+  secret: process.env.NEXTAUTH_SECRET,
 }
 
 const handler = NextAuth(authOptions);
