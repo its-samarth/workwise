@@ -1,7 +1,7 @@
+// app/home.js (or the relevant page file)
 "use client";
-
-import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Link from "next/link";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -11,19 +11,13 @@ export default function Home() {
       <h1>Welcome to Train App</h1>
       {session ? (
         <>
-          <p>
-            Signed in as <strong>{session?.user?.email}</strong>
-          </p>
-          <button onClick={() => signOut()} style={styles.button}>
-            Sign out
-          </button>
+          <p>Signed in as <strong>{session?.user?.email}</strong></p>
+          <button onClick={() => signOut()} style={styles.button}>Sign out</button>
         </>
       ) : (
         <>
           <p>You are not signed in.</p>
-          <button onClick={() => signIn()} style={styles.button}>
-            Sign in
-          </button>
+          <button onClick={() => signIn("github")} style={styles.button}>Sign in with GitHub</button>
         </>
       )}
       <hr style={{ margin: "20px 0" }} />
