@@ -102,6 +102,11 @@ export const authOptions = {
 
       return session;
     },
+    // Redirect user after sign in
+    async redirect({ url, baseUrl }: { url: string, baseUrl: string }) {
+      // Redirect to the requested page or the home page
+      return url.startsWith(baseUrl) ? url : baseUrl;
+    },
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
