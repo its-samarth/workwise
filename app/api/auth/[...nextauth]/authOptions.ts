@@ -16,14 +16,14 @@ interface Session extends NextAuthSession {
   };
 }
 
-// Define your authOptions
+
 export const authOptions = {
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID as string,
       clientSecret: process.env.GITHUB_SECRET as string,
     }),
-    // Add other providers if needed
+   
   ],
   callbacks: {
     async signIn({
@@ -35,10 +35,10 @@ export const authOptions = {
       account: Account;
       profile: Profile;
     }) {
-      console.log("signIn callback triggered");
-      console.log("Received user:", user);
-      console.log("Received account:", account);
-      console.log("Received profile:", profile);
+      // console.log("signIn callback triggered");
+      // console.log("Received user:", user);
+      // console.log("Received account:", account);
+      // console.log("Received profile:", profile);
 
       try {
         // Check if the user already exists in the database
@@ -46,25 +46,25 @@ export const authOptions = {
           where: { email: user.email ?? undefined },
         });
 
-        console.log("Existing user found:", existingUser);
+        // console.log("Existing user found:", existingUser);
 
         // If the user does not exist, create the user in the database
         if (!existingUser) {
-          console.log("Creating new user...");
+          // console.log("Creating new user...");
           existingUser = await prisma.user.create({
             data: {
-              name: user.name || profile.name || "Unknown", // Use the GitHub profile name if available
+              name: user.name || profile.name || "Unknown", 
               email: user.email ?? "unknown@example.com",
               image_url: user.image, // Profile image URL from GitHub
             },
           });
 
-          console.log("New user created:", existingUser);
+          // console.log("New user created:", existingUser);
         }
 
         // Pass the user id to the JWT token (for use in session)
         user.id = existingUser.id.toString();
-        console.log("User ID assigned to token:", user.id);
+        // console.log("User ID assigned to token:", user.id);
 
         return true;
       } catch (error) {
@@ -74,37 +74,35 @@ export const authOptions = {
     },
 
     async jwt({ token, user }: { token: JWT; user: User | undefined }) {
-      console.log("jwt callback triggered");
+      // console.log("jwt callback triggered");
 
       if (user) {
-        console.log("Adding user data to JWT:", user);
-        // Add user information to the JWT token
+        // console.log("Adding user data to JWT:", user);
         token.id = user.id;
         token.name = user.name;
         token.email = user.email;
-        token.image_url = user.image; // Ensure the field here matches the field used in the signIn callback
+        token.image_url = user.image; 
       }
 
       return token;
     },
 
     async session({ session, token }: { session: Session; token: JWT }) {
-      console.log("session callback triggered");
-      console.log("Received token in session:", token);
+      // console.log("session callback triggered");
+      // console.log("Received token in session:", token);
 
       if (token && session.user) {
         session.user.id = token.id as string;
         session.user.name = token.name;
         session.user.email = token.email;
-        session.user.image = token.image_url as string; // Use image_url here from JWT
-        console.log("Session user data:", session.user);
+        session.user.image = token.image_url as string; 
+        // console.log("Session user data:", session.user);
       }
 
       return session;
     },
     // Redirect user after sign in
     async redirect({ url, baseUrl }: { url: string, baseUrl: string }) {
-      // Redirect to the requested page or the home page
       return url.startsWith(baseUrl) ? url : baseUrl;
     },
   },

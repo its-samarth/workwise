@@ -48,7 +48,7 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     padding: "20px",
-    backgroundColor: "#f9f9f9", // Light grey background for contrast
+    backgroundColor: "#f9f9f9", 
     boxSizing: "border-box",
   },
   headerContainer: {
@@ -57,18 +57,18 @@ const styles = {
     padding: "0 10px",
   },
   title: {
-    fontSize: "clamp(20px, 4vw, 28px)", // Adjusts based on screen width
+    fontSize: "clamp(20px, 4vw, 28px)", 
     fontWeight: "bold",
     color: "#333",
     marginBottom: "10px",
   },
   description: {
-    fontSize: "clamp(14px, 2.5vw, 18px)", // Responsive text size
+    fontSize: "clamp(14px, 2.5vw, 18px)", 
     color: "#555",
   },
   coachContainer: {
     width: "100%",
-    maxWidth: "800px", // Limits width on larger screens
+    maxWidth: "800px", 
     backgroundColor: "white",
     padding: "20px",
     borderRadius: "12px",
