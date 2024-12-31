@@ -2,9 +2,11 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 
+
 const Navbar = () => {
   const { data: session } = useSession();
-
+    //console.log(session);
+    
   return (
     <header style={styles.header}>
       <div style={styles.logoContainer}>
