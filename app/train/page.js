@@ -1,8 +1,31 @@
-// src/app/train/page.js
-
+"use client";
+import { useSession, signIn } from "next-auth/react";
 import TrainCoach from "../components/TrainCoach";
 
 const TrainPage = () => {
+  const { data: session, status } = useSession();
+
+  // Show a loading state while checking the session
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  // If there is no session, show a message and sign-in button
+  if (!session) {
+    return (
+      <div style={styles.pageContainer}>
+        <h1 style={styles.title}>Access Denied</h1>
+        <p style={styles.description}>
+          You need to sign in to view this page.
+        </p>
+        <button onClick={() => signIn()} style={styles.button}>
+          Sign in
+        </button>
+      </div>
+    );
+  }
+
+  // If the user is signed in, show the train seating arrangement
   return (
     <div style={styles.pageContainer}>
       <div style={styles.headerContainer}>
@@ -17,7 +40,6 @@ const TrainPage = () => {
     </div>
   );
 };
-
 const styles = {
   pageContainer: {
     minHeight: "100vh",
@@ -54,6 +76,14 @@ const styles = {
     border: "1px solid #ddd",
     boxSizing: "border-box",
   },
+  button: {
+    padding: "10px 20px",
+    fontSize: "16px",
+    backgroundColor: "#0070f3",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
 };
-
 export default TrainPage;
