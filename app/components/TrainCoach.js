@@ -20,7 +20,7 @@ export default function TrainCoach() {
       setSeats(data);
       setError(null);
     } catch (err) {
-      setError("Failed to load seats");
+      setError("Failed to load seats",err);
     } finally {
       setLoading(false);
     }
@@ -40,7 +40,7 @@ export default function TrainCoach() {
       loadSeats(); // Refresh seats after booking
       setError(null);
     } catch (err) {
-      setError("Failed to book seats");
+      setError("Failed to book seats",err);
     }
   };
 
@@ -53,7 +53,7 @@ export default function TrainCoach() {
       loadSeats(); // Refresh seats after cancellation
       setError(null);
     } catch (err) {
-      setError("Failed to cancel booking");
+      setError("Failed to cancel booking",err);
     }
   };
 
@@ -65,7 +65,7 @@ export default function TrainCoach() {
       setSelectedSeats([]);
       setError(null);
     } catch (err) {
-      setError("Failed to reset seats");
+      setError("Failed to reset seats",err);
     }
   };
 
