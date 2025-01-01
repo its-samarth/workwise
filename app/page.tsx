@@ -1,6 +1,7 @@
 "use client";
 import { useSession, signIn } from "next-auth/react";
 import Link from "next/link";
+import { Github, Chrome } from "lucide-react";
 import { CSSProperties } from "react";
 
 export default function Home() {
@@ -8,8 +9,6 @@ export default function Home() {
 
   return (
     <div style={styles.container}>
-      
-
       <main style={styles.main}>
         <section style={styles.card}>
           <h2 style={styles.greeting}>
@@ -23,9 +22,30 @@ export default function Home() {
               : "Sign in to unlock a seamless ticket booking experience."}
           </p>
           {session ? null : (
-            <button onClick={() => signIn("github")} style={styles.signInButton}>
-              Sign In with GitHub
-            </button>
+            <div style={styles.buttonContainer}>
+              <button
+                onClick={() => {
+                  console.log("Google sign-in attempt...");
+                  signIn("google").catch((error) => {
+                    console.error("Error during Google sign-in:", error);
+                  });
+                }}
+                style={styles.googleButton}
+                className="google-btn"
+              >
+                <Chrome size={18} style={styles.buttonIcon} />
+                <span style={styles.buttonText}>Sign in with Google</span>
+              </button>
+
+              <button
+                onClick={() => signIn("github")}
+                style={styles.githubButton}
+                className="github-btn"
+              >
+                <Github size={18} style={styles.buttonIcon} />
+                <span style={styles.buttonText}>Sign in with GitHub</span>
+              </button>
+            </div>
           )}
         </section>
 
@@ -36,9 +56,19 @@ export default function Home() {
           </Link>
         </section>
       </main>
+
+      <style jsx global>{`
+        .google-btn:hover {
+          background-color: #357ae8 !important;
+        }
+        .github-btn:hover {
+          background-color: #2c2c2c !important;
+        }
+      `}</style>
     </div>
   );
 }
+
 
 const styles: { [key: string]: CSSProperties } = {
   container: {
@@ -149,5 +179,50 @@ const styles: { [key: string]: CSSProperties } = {
     backgroundColor: "#e0f2fe",
     transition: "background-color 0.3s ease, color 0.3s ease",
     display: "inline-block",
+  },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+    width: '100%',
+    maxWidth: '280px',
+    margin: '0 auto',
+  },
+  googleButton: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0 16px',
+    height: '40px',
+    backgroundColor: '#4285f4',
+    border: 'none',
+    borderRadius: '3px',
+    boxShadow: '0 2px 4px 0 rgba(0,0,0,.25)',
+    cursor: 'pointer',
+    transition: 'background-color 0.218s, border-color 0.218s, box-shadow 0.218s',
+  },
+  githubButton: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0 16px',
+    height: '40px',
+    backgroundColor: '#24292e',
+    border: 'none',
+    borderRadius: '3px',
+    boxShadow: '0 2px 4px 0 rgba(0,0,0,.25)',
+    cursor: 'pointer',
+    transition: 'background-color 0.218s',
+  },
+  buttonIcon: {
+    width: '18px',
+    height: '18px',
+    color: '#ffffff',
+  },
+  buttonText: {
+    margin: '0 0 0 10px',
+    color: '#ffffff',
+    fontSize: '14px',
+    fontWeight: '500',
+    fontFamily: 'Roboto, arial, sans-serif',
+    letterSpacing: '0.21px',
   },
 };
