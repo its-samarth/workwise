@@ -1,5 +1,5 @@
 // services/api.js
-const BASE_URL = 'https://workwise-backend-566v.onrender.com/routes/api';
+const BASE_URL = 'https://workwise-backend-production.up.railway.app/routes/api';
 
 export const fetchSeats = async () => {
   try {
