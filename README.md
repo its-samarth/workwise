@@ -2,6 +2,13 @@
 
 A full-stack application for train seat reservations built with Next.js, Node.js, and PostgreSQL.
 
+
+<img width="202" alt="homepage" src="https://github.com/user-attachments/assets/0070bab4-8c43-4556-9489-d551a19dc3aa" />
+<img width="176" alt="image" src="https://github.com/user-attachments/assets/e76cdda7-f9b3-4714-a3ac-3a87d5e04d8f" />
+
+
+
+
 ## Features
 
 - User authentication (Google, GitHub, Email)
